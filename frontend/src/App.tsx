@@ -279,7 +279,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <header className="header">
-        <h1>TON Casino</h1>
+        <h1>Tonimi</h1>
         <p className="subtitle">Играйте и выигрывайте TON</p>
       </header>
 
