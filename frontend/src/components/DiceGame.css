@@ -1,0 +1,295 @@
+.dice-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dice-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.dice-selector {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dice-selector label {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.dice-selector input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  outline: none;
+  -webkit-appearance: none;
+  transition: all 0.3s ease;
+}
+
+.dice-selector input[type="range"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dice-selector input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dice-selector input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+}
+
+.dice-selector input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dice-options {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.dice-option {
+  flex: 1;
+  padding: 14px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dice-option:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dice-option.active {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.dice-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dice-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Анимация кубика */
+.dice-cube {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 20px 0;
+}
+
+.dice-cube.rolling {
+  animation: rollDice 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes rollDice {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotateX(90deg) rotateY(90deg);
+  }
+  50% {
+    transform: rotateX(180deg) rotateY(180deg);
+  }
+  75% {
+    transform: rotateX(270deg) rotateY(270deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+.dice-face {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  backface-visibility: hidden;
+}
+
+.dice-cube.win .dice-face {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.dice-cube.lose .dice-face {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.2) 0%, rgba(217, 119, 6, 0.05) 100%);
+  border-color: rgba(217, 119, 6, 0.4);
+}
+
+.dice-number.rolling-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 32px;
+  animation: rollingDots 1s ease-in-out infinite;
+}
+
+@keyframes rollingDots {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Позиции граней кубика */
+.dice-face-1 {
+  transform: rotateY(0deg) translateZ(60px);
+}
+
+.dice-face-2 {
+  transform: rotateY(90deg) translateZ(60px);
+}
+
+.dice-face-3 {
+  transform: rotateX(90deg) translateZ(60px);
+}
+
+.dice-face-4 {
+  transform: rotateX(-90deg) translateZ(60px);
+}
+
+.dice-face-5 {
+  transform: rotateY(-90deg) translateZ(60px);
+}
+
+.dice-face-6 {
+  transform: rotateY(180deg) translateZ(60px);
+}
+
+/* Число результата поверх кубика */
+.dice-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 56px;
+  font-weight: 900;
+  z-index: 10;
+  pointer-events: none;
+  animation: numberPulse 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+@keyframes numberPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3) rotate(180deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.dice-number.win {
+  color: #10b981;
+  text-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(16, 185, 129, 0.8),
+    0 0 60px rgba(16, 185, 129, 0.5);
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+}
+
+.dice-number.lose {
+  color: #f59e0b;
+  text-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(217, 119, 6, 0.8),
+    0 0 60px rgba(217, 119, 6, 0.5);
+  filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.6));
+}
+
+.result-text {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-text.win {
+  color: #10b981;
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.result-text.lose {
+  color: #f59e0b;
+  text-shadow: 0 0 20px rgba(217, 119, 6, 0.5);
+}
